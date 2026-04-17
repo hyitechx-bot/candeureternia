@@ -314,3 +314,94 @@ a { text-decoration: none; color: inherit; }
   .whatsapp-float span { display: none; }
   .whatsapp-float { padding: 14px; border-radius: 50%; }
 }
+
+/* ===== PAYMENT PLAN ===== */
+.payment-plan { background: var(--dark); }
+.payment-plan .section-tag { color: var(--gold-light); }
+.payment-plan h2 { color: #fff; }
+.payment-plan .section-sub { color: rgba(255,255,255,0.55); }
+.payment-grid {
+  display: flex; align-items: stretch; justify-content: center;
+  gap: 0; margin: 48px auto 36px; max-width: 780px;
+}
+.payment-card {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(184,150,62,0.25);
+  border-radius: 16px; padding: 48px 40px;
+  text-align: center; flex: 1;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  transition: border-color 0.2s, background 0.2s;
+}
+.payment-card:hover { border-color: rgba(184,150,62,0.5); background: rgba(184,150,62,0.06); }
+.payment-percent {
+  font-family: 'Playfair Display', serif;
+  font-size: 7rem; font-weight: 700; line-height: 1;
+  color: #fff; letter-spacing: -4px;
+}
+.payment-percent span {
+  font-size: 2.8rem; color: var(--gold); vertical-align: super; letter-spacing: 0;
+}
+.payment-label {
+  font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase;
+  color: var(--gold-light); font-weight: 600; margin: 14px 0 28px;
+}
+.payment-breakdown { display: flex; flex-direction: column; gap: 14px; width: 100%; }
+.payment-row {
+  display: flex; align-items: center; justify-content: center;
+  gap: 12px; color: rgba(255,255,255,0.75); font-size: 0.95rem;
+}
+.pill {
+  background: var(--gold); color: #fff;
+  font-size: 0.8rem; font-weight: 700;
+  padding: 4px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0;
+}
+.payment-plus {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; color: var(--gold); font-weight: 700;
+  flex-shrink: 0; padding: 0 24px;
+  display: flex; align-items: center;
+}
+.payment-cta { text-align: center; margin-top: 8px; }
+
+@media (max-width: 640px) {
+  .payment-grid { flex-direction: column; align-items: center; gap: 16px; max-width: 340px; }
+  .payment-plus { padding: 0; transform: rotate(90deg); }
+  .payment-card { width: 100%; padding: 36px 28px; }
+  .payment-percent { font-size: 5rem; }
+}
+
+/* ===== SPECIFICATIONS ===== */
+.specs { background: var(--light); }
+.specs-list { margin-top: 40px; display: flex; flex-direction: column; gap: 10px; max-width: 900px; margin-left: auto; margin-right: auto; }
+.spec-item { background: #fff; border: 1px solid #e5e0d8; border-radius: var(--radius); overflow: hidden; }
+.spec-item summary { padding: 18px 24px; font-weight: 600; font-size: 0.95rem; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: var(--dark); }
+.spec-item summary::-webkit-details-marker { display: none; }
+.spec-item summary::after { content: '+'; font-size: 1.2rem; color: var(--gold); }
+.spec-item[open] summary::after { content: '−'; }
+.spec-item[open] summary { color: var(--gold); border-bottom: 1px solid #f0ece4; }
+.spec-content { padding: 16px 24px 20px; display: flex; flex-direction: column; gap: 10px; }
+.spec-content p { font-size: 0.875rem; color: #555; line-height: 1.7; }
+.spec-content strong { color: var(--dark); }
+
+/* ===== BRAND TRUST ===== */
+.brand-trust { background: #fff; }
+.brand-inner { text-align: center; }
+.brand-logo-wrap { margin: 32px auto; max-width: 200px; }
+.brand-logo-wrap img { width: 100%; filter: brightness(0); opacity: 0.8; }
+.brand-points { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 40px; }
+.brand-point { background: var(--light); border-radius: var(--radius); padding: 24px 20px; text-align: center; }
+.brand-point span { font-size: 1.8rem; display: block; margin-bottom: 10px; }
+.brand-point p { font-size: 0.875rem; color: #555; line-height: 1.6; }
+
+/* ===== FOOTER UPDATES ===== */
+.footer-social { margin-bottom: 10px; }
+.footer-social a { color: var(--gold-light); margin: 0 4px; font-size: 0.85rem; }
+.footer-social a:hover { color: #fff; }
+.footer-disclaimer { font-size: 0.75rem; color: rgba(255,255,255,0.3); max-width: 800px; margin: 8px auto 12px; line-height: 1.6; }
+
+@media (max-width: 768px) {
+  .brand-points { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 480px) {
+  .brand-points { grid-template-columns: 1fr; }
+}
