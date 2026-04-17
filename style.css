@@ -405,3 +405,36 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 480px) {
   .brand-points { grid-template-columns: 1fr; }
 }
+
+/* ===== DISCLOSURE BANNER ===== */
+.disclosure-bar {
+  background: #1a1200;
+  border-bottom: 1px solid rgba(184,150,62,0.4);
+  padding: 10px 24px;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  position: relative; z-index: 200;
+}
+.disclosure-bar p {
+  font-size: 0.78rem; color: rgba(255,255,255,0.6);
+  text-align: center; line-height: 1.5; max-width: 900px;
+}
+.disclosure-bar a { color: var(--gold-light); text-decoration: underline; }
+.disclosure-bar button {
+  background: none; border: none; color: rgba(255,255,255,0.4);
+  font-size: 1rem; cursor: pointer; flex-shrink: 0; padding: 4px 8px;
+  transition: color 0.2s;
+}
+.disclosure-bar button:hover { color: #fff; }
+
+/* push header down to account for disclosure bar */
+.header { top: 0; }
+
+/* channel partner note in footer */
+.channel-partner-note {
+  font-size: 0.72rem !important;
+  color: rgba(255,255,255,0.3) !important;
+  margin-top: 8px; line-height: 1.5;
+  border-top: 1px solid rgba(255,255,255,0.06);
+  padding-top: 8px;
+}
+.channel-partner-note a { color: var(--gold-light); text-decoration: underline; }
