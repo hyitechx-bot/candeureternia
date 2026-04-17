@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://candeureternia.in/sitemap.xml
+Sitemap: https://www.candeureternia.com/sitemap.xml
