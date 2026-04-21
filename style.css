@@ -322,7 +322,7 @@ a { text-decoration: none; color: inherit; }
 .payment-plan .section-sub { color: rgba(255,255,255,0.55); }
 .payment-grid {
   display: flex; align-items: stretch; justify-content: center;
-  gap: 0; margin: 48px auto 36px; max-width: 780px;
+  gap: 0; margin: 48px auto 36px; max-width: 960px;
 }
 .payment-card {
   background: rgba(255,255,255,0.05);
