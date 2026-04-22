@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Candeur Eternia – Price Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',sans-serif;background:#0f0f0f;color:#e0e0e0;min-height:100vh}
+:root{--gold:#C9A84C;--gold-light:#e0c070;--dark:#0f0f0f;--card:#1a1a1a;--border:#2a2a2a;--green:#22c55e;--blue:#3b82f6;--purple:#a855f7}
+.header{background:#111;border-bottom:1px solid var(--border);padding:20px 24px;display:flex;align-items:center;justify-content:space-between}
+.header h1{font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold)}
+.header p{font-size:0.78rem;color:#666;margin-top:2px}
+.rera{font-size:0.72rem;color:#555;text-align:right}
+.container{max-width:1100px;margin:0 auto;padding:24px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:20px}
+.card-title{font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--gold);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-group label{font-size:0.78rem;color:#888;font-weight:500;text-transform:uppercase;letter-spacing:0.5px}
+.form-group input,.form-group select{background:#111;border:1px solid var(--border);border-radius:8px;padding:10px 12px;color:#e0e0e0;font-size:0.9rem;font-family:'Inter',sans-serif;transition:border-color 0.2s}
+.form-group input:focus,.form-group select:focus{outline:none;border-color:var(--gold)}
+.form-group input[readonly]{color:#888;cursor:default}
+.flat-info{background:#111;border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:18px;display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+.fi-item strong{display:block;font-size:1.1rem;color:var(--gold);font-family:'Playfair Display',serif}
+.fi-item span{font-size:0.72rem;color:#666;text-transform:uppercase;letter-spacing:0.5px}
+.checkbox-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
+.checkbox-row:last-child{border-bottom:none}
+.checkbox-row input[type=checkbox]{width:16px;height:16px;accent-color:var(--gold);cursor:pointer}
+.checkbox-row label{flex:1;font-size:0.875rem;color:#ccc;cursor:pointer}
+.checkbox-row .rate{font-size:0.8rem;color:#888}
+table{width:100%;border-collapse:collapse;font-size:0.875rem}
+th{background:#111;color:var(--gold);font-weight:600;padding:10px 14px;text-align:left;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.5px}
+td{padding:10px 14px;border-bottom:1px solid var(--border);color:#ccc}
+tr:hover td{background:rgba(201,168,76,0.04)}
+.amount{text-align:right;font-weight:600;color:#e0e0e0}
+.subtotal td{background:rgba(201,168,76,0.08);color:var(--gold);font-weight:700}
+.grand-total td{background:rgba(201,168,76,0.15);color:var(--gold-light);font-weight:700;font-size:1rem}
+.pay-20 td{background:rgba(34,197,94,0.08);color:#86efac}
+.pay-30 td{background:rgba(59,130,246,0.08);color:#93c5fd}
+.pay-50 td{background:rgba(168,85,247,0.08);color:#d8b4fe}
+.pay-legend{display:flex;gap:16px;margin-bottom:16px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:0.8rem}
+.legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.dot-20{background:#22c55e}
+.dot-30{background:#3b82f6}
+.dot-50{background:#a855f7}
+.cumulative{font-size:0.78rem;color:#888}
+.btn-print{background:var(--gold);color:#000;border:none;padding:12px 28px;border-radius:8px;font-weight:700;font-size:0.9rem;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s}
+.btn-print:hover{background:var(--gold-light)}
+.note{font-size:0.75rem;color:#555;line-height:1.6;margin-top:12px;padding:12px;background:#111;border-radius:8px;border-left:3px solid var(--border)}
+.section-label{font-size:0.7rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px}
+.total-box{background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(201,168,76,0.05));border:1px solid rgba(201,168,76,0.3);border-radius:12px;padding:20px;text-align:center;margin-top:16px}
+.total-box .label{font-size:0.75rem;color:#888;text-transform:uppercase;letter-spacing:1px}
+.total-box .value{font-family:'Playfair Display',serif;font-size:2rem;color:var(--gold);margin:4px 0}
+.total-box .sub{font-size:0.78rem;color:#666}
+@media(max-width:768px){.grid-2{grid-template-columns:1fr}.form-row{grid-template-columns:1fr}.flat-info{grid-template-columns:1fr 1fr}}
+@media print{
+  body{background:#fff;color:#000}
+  .header{background:#fff;border-bottom:2px solid #C9A84C}
+  .header h1{color:#C9A84C}
+  .card{background:#fff;border:1px solid #ddd;break-inside:avoid}
+  .card-title{color:#C9A84C}
+  th{background:#f5f5f5;color:#333}
+  td{color:#333}
+  .subtotal td{background:#fff8e6;color:#a8882e}
+  .grand-total td{background:#fff3cc;color:#a8882e}
+  .pay-20 td{background:#f0fdf4;color:#166534}
+  .pay-30 td{background:#eff6ff;color:#1e40af}
+  .pay-50 td{background:#faf5ff;color:#6b21a8}
+  .btn-print{display:none}
+  .form-group input,.form-group select{background:#f9f9f9;color:#000;border:1px solid #ddd}
+  .flat-info{background:#f9f9f9}
+  .total-box{background:#fff8e6;border:1px solid #C9A84C}
+  .total-box .value{color:#a8882e}
+  .note{background:#f9f9f9;color:#555}
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div>
+    <h1>Candeur Eternia – Price Calculator</h1>
+    <p>Bachupally, Hyderabad · Authorised Channel Partner Tool</p>
+  </div>
+  <div class="rera">TS RERA REG. NO: P02200010709<br/>www.candeureternia.com</div>
+</div>
+<div class="container">
+
+<!-- SECTION 1: FLAT SELECTOR -->
+<div class="card">
+  <div class="card-title">Step 1 – Select Flat</div>
+  <div class="form-row">
+    <div class="form-group">
+      <label>Tower</label>
+      <select id="block" onchange="updateBHK()">
+        <option value="">-- Select Tower --</option>
+        <option value="A">Tower A (6 flats/floor · 32 floors · All 3 BHK)</option>
+        <option value="B">Tower B (10 flats/floor · 32 floors · 2/2.5/3 BHK)</option>
+        <option value="C">Tower C (6 flats/floor · 32 floors · 2.5/3 BHK)</option>
+        <option value="D">Tower D (8 flats/floor · 35 floors · 2/3 BHK)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>BHK Type</label>
+      <select id="bhk" onchange="updateFlats()">
+        <option value="">-- Select BHK --</option>
+      </select>
+    </div>
+    <div class="form-group" style="grid-column:span 2">
+      <label>Flat Number</label>
+      <select id="flat" onchange="updateFlatInfo()">
+        <option value="">-- Select Flat --</option>
+      </select>
+    </div>
+  </div>
+  <!-- hidden facing field kept for JS compatibility -->
+  <select id="facing" style="display:none"></select>
+  <div class="flat-info" id="flatInfo">
+    <div class="fi-item"><strong id="fi-size">–</strong><span>Size (Sq.Ft)</span></div>
+    <div class="fi-item"><strong id="fi-floor">–</strong><span>Floor</span></div>
+    <div class="fi-item"><strong id="fi-facing">–</strong><span>Facing</span></div>
+    <div class="fi-item"><strong id="fi-bhk">–</strong><span>Configuration</span></div>
+    <div class="fi-item"><strong id="fi-corner">–</strong><span>Corner Unit</span></div>
+  </div>
+</div>
+
+<!-- SECTION 2: PRICE CONFIG -->
+<div class="grid-2">
+  <div class="card">
+    <div class="card-title">Step 2 – Price Configuration</div>
+    <div class="section-label">Per Sq.Ft Charges</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Base Price (₹/sqft)</label>
+        <input type="number" id="basePrice" value="6499" oninput="calculate()"/>
+      </div>
+      <div class="form-group">
+        <label>Amenities & Infra (₹/sqft)</label>
+        <input type="number" id="amenities" value="500" oninput="calculate()"/>
+      </div>
+      <div class="form-group">
+        <label>Floor Rise (₹/sqft) — auto</label>
+        <input type="number" id="floorRise" value="0" readonly/>
+      </div>
+      <div class="form-group">
+        <label>East Facing (₹/sqft) — auto</label>
+        <input type="number" id="eastFacing" value="0" readonly/>
+      </div>
+      <div class="form-group">
+        <label>Corpus Fund (₹/sqft)</label>
+        <input type="number" id="corpus" value="50" oninput="calculate()"/>
+      </div>
+      <div class="form-group">
+        <label>Advance Maintenance (₹/sqft)</label>
+        <input type="number" id="maintenance" value="54" oninput="calculate()"/>
+      </div>
+    </div>
+    <div class="section-label" style="margin-top:16px">Optional Premiums</div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="corner" onchange="calculate()"/>
+      <label for="corner">Corner Premium</label>
+      <span class="rate">₹100/sqft</span>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="viewPremium" onchange="calculate()"/>
+      <label for="viewPremium">View Premium Charges</label>
+      <span class="rate">₹100/sqft</span>
+    </div>
+    <div class="checkbox-row">
+      <input type="checkbox" id="parking" onchange="calculate()" checked/>
+      <label for="parking">Car Parking (1 Slot)</label>
+      <span class="rate">₹3,50,000 fixed</span>
+    </div>
+    <div class="section-label" style="margin-top:16px">Fixed Charges</div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Legal & Documentation (₹)</label>
+        <input type="number" id="legal" value="25000" oninput="calculate()"/>
+      </div>
+      <div class="form-group">
+        <label>Gas Pipeline Charges (₹)</label>
+        <input type="number" id="gas" value="30000" oninput="calculate()"/>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOTAL BOX -->
+  <div>
+    <div class="card">
+      <div class="card-title">Grand Total</div>
+      <div class="total-box">
+        <div class="label">All Inclusive Price</div>
+        <div class="value" id="grandTotalDisplay">₹ –</div>
+        <div class="sub" id="grandTotalWords">Select a flat to calculate</div>
+      </div>
+      <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+        <div style="background:#111;border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:1px">Base Cost</div>
+          <div style="font-size:1.1rem;color:#e0e0e0;font-weight:600" id="baseCostDisplay">–</div>
+        </div>
+        <div style="background:#111;border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:1px">Fixed Charges</div>
+          <div style="font-size:1.1rem;color:#e0e0e0;font-weight:600" id="fixedDisplay">–</div>
+        </div>
+        <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:0.7rem;color:#86efac;text-transform:uppercase;letter-spacing:1px">20% on Booking</div>
+          <div style="font-size:1.1rem;color:#86efac;font-weight:700" id="pay20">–</div>
+        </div>
+        <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:12px;text-align:center">
+          <div style="font-size:0.7rem;color:#93c5fd;text-transform:uppercase;letter-spacing:1px">30% Installments</div>
+          <div style="font-size:1.1rem;color:#93c5fd;font-weight:700" id="pay30">–</div>
+        </div>
+        <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);border-radius:8px;padding:12px;text-align:center;grid-column:span 2">
+          <div style="font-size:0.7rem;color:#d8b4fe;text-transform:uppercase;letter-spacing:1px">50% on Possession</div>
+          <div style="font-size:1.3rem;color:#d8b4fe;font-weight:700" id="pay50">–</div>
+        </div>
+      </div>
+      <div class="note" style="margin-top:16px">GST and Registration charges are payable extra as per applicable government rates. All prices are subject to change without prior notice.</div>
+    </div>
+    <button class="btn-print" onclick="window.print()" style="width:100%;margin-top:0">🖨️ Print / Download PDF</button>
+  </div>
+</div>
+
+<!-- SECTION 3: PRICE BREAKDOWN -->
+<div class="card">
+  <div class="card-title">Price Breakdown</div>
+  <table id="breakdownTable">
+    <thead>
+      <tr><th>Sl.</th><th>Particulars</th><th>Rate</th><th>Sq.Ft</th><th style="text-align:right">Amount (₹)</th></tr>
+    </thead>
+    <tbody id="breakdownBody">
+      <tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see price breakdown</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- SECTION 4: PAYMENT SCHEDULE -->
+<div class="card">
+  <div class="card-title">Payment Schedule</div>
+  <div class="pay-legend">
+    <div class="legend-item"><div class="legend-dot dot-20"></div><span style="color:#86efac">20% – On Booking (within 21 days)</span></div>
+    <div class="legend-item"><div class="legend-dot dot-30"></div><span style="color:#93c5fd">30% – Construction Linked Installments</span></div>
+    <div class="legend-item"><div class="legend-dot dot-50"></div><span style="color:#d8b4fe">50% – On Possession</span></div>
+  </div>
+  <table>
+    <thead>
+      <tr><th>Sl.</th><th>Stage of Payment</th><th>%</th><th style="text-align:right">Amount (₹)</th><th style="text-align:right">Cumulative (₹)</th></tr>
+    </thead>
+    <tbody id="scheduleBody">
+      <tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see payment schedule</td></tr>
+    </tbody>
+  </table>
+  <div class="note" style="margin-top:16px">
+    • Registration Charges, GST and any other taxes as applicable are payable on the prevailing Guidelines.<br/>
+    • The above mentioned rates are subject to confirmation and not a legal offering. Prices are subject to change without prior Notice.<br/>
+    • Stamp Duty Charges as applicable under RERA for Registration of Sale Agreement shall be paid by the Buyer.<br/>
+    • Demand for the payment will be on the basis of completion of the milestones attributed to the particular wing/block in which Apartment is located.
+  </div>
+</div>
+
+</div><!-- end container -->
+
+<script>
+// ===== FLAT DATA (from official layout images) =====
+// Each tower has a fixed layout per floor. Flat numbers = floor*100 + unit (e.g. floor 3, unit 2 = flat 302)
+// Tower A: 6 flats/floor, 32 floors | Tower B: 10 flats/floor, 32 floors
+// Tower C: 6 flats/floor, 32 floors | Tower D: 8 flats/floor, 35 floors
+
+const towerLayouts = {
+  A: [
+    // 6 flats per floor, all 3 BHK
+    {unit:1, bhk:'3 BHK', sft:2192, corner:true,  facing:'East / North-East'},
+    {unit:2, bhk:'3 BHK', sft:2004, corner:false, facing:'East'},
+    {unit:3, bhk:'3 BHK', sft:1874, corner:false, facing:'South-East'},
+    {unit:4, bhk:'3 BHK', sft:2192, corner:true,  facing:'West / North-West'},
+    {unit:5, bhk:'3 BHK', sft:2004, corner:false, facing:'West'},
+    {unit:6, bhk:'3 BHK', sft:2192, corner:true,  facing:'North-West'},
+  ],
+  B: [
+    // 10 flats per floor
+    {unit:1,  bhk:'2 BHK',   sft:1467, corner:true,  facing:'East'},
+    {unit:2,  bhk:'2.5 BHK', sft:1385, corner:false, facing:'East'},
+    {unit:3,  bhk:'3 BHK',   sft:1608, corner:false, facing:'South-East'},
+    {unit:4,  bhk:'3 BHK',   sft:1874, corner:false, facing:'South'},
+    {unit:5,  bhk:'3 BHK',   sft:2004, corner:false, facing:'South-West'},
+    {unit:6,  bhk:'3 BHK',   sft:2004, corner:false, facing:'North-West'},
+    {unit:7,  bhk:'3 BHK',   sft:1874, corner:false, facing:'North'},
+    {unit:8,  bhk:'3 BHK',   sft:1608, corner:false, facing:'North-East'},
+    {unit:9,  bhk:'2.5 BHK', sft:1385, corner:false, facing:'West'},
+    {unit:10, bhk:'2 BHK',   sft:1467, corner:true,  facing:'West'},
+  ],
+  C: [
+    // 6 flats per floor
+    {unit:1, bhk:'2.5 BHK', sft:1590, corner:true,  facing:'East'},
+    {unit:2, bhk:'3 BHK',   sft:1799, corner:false, facing:'East'},
+    {unit:3, bhk:'3 BHK',   sft:2182, corner:true,  facing:'South-East'},
+    {unit:4, bhk:'3 BHK',   sft:2182, corner:true,  facing:'South-West'},
+    {unit:5, bhk:'3 BHK',   sft:1799, corner:false, facing:'West'},
+    {unit:6, bhk:'2.5 BHK', sft:1590, corner:true,  facing:'West'},
+  ],
+  D: [
+    // 8 flats per floor, 35 floors
+    {unit:1, bhk:'2 BHK', sft:1546, corner:true,  facing:'East'},
+    {unit:2, bhk:'3 BHK', sft:1874, corner:false, facing:'East'},
+    {unit:3, bhk:'3 BHK', sft:1874, corner:false, facing:'South-East'},
+    {unit:4, bhk:'3 BHK', sft:2182, corner:true,  facing:'South'},
+    {unit:5, bhk:'3 BHK', sft:2182, corner:true,  facing:'North'},
+    {unit:6, bhk:'3 BHK', sft:1874, corner:false, facing:'North-West'},
+    {unit:7, bhk:'3 BHK', sft:1874, corner:false, facing:'West'},
+    {unit:8, bhk:'2 BHK', sft:1546, corner:true,  facing:'West'},
+  ]
+};
+
+const towerFloors = {A:32, B:32, C:32, D:35};
+
+// Build flat list dynamically from layout
+function buildFlatList(tower) {
+  const layout = towerLayouts[tower];
+  const floors = towerFloors[tower];
+  const flats = [];
+  for (let f = 1; f <= floors; f++) {
+    layout.forEach(unit => {
+      flats.push({
+        id: `${tower}${f}0${unit.unit}`,
+        label: `${tower}-${f}0${unit.unit} | Floor ${f} | Unit ${unit.unit} | ${unit.bhk} | ${unit.sft} sft | ${unit.facing}`,
+        floor: f,
+        unit: unit.unit,
+        bhk: unit.bhk,
+        sft: unit.sft,
+        corner: unit.corner,
+        facing: unit.facing
+      });
+    });
+  }
+  return flats;
+}
+
+// Payment schedule stages
+const stages = [
+  {name:'Booking Advance Amount', pct:0, fixed:400000, group:'20'},
+  {name:'Within 21 days of Booking (incl. Token Advance)', pct:20, group:'20'},
+  {name:'On Casting of Foundation', pct:5, group:'30'},
+  {name:'On Casting of 2nd Basement Slab', pct:5, group:'30'},
+  {name:'On Casting of 4th Basement Slab', pct:5, group:'30'},
+  {name:'On Casting of 3rd Floor Slab', pct:5, group:'30'},
+  {name:'On Casting of 6th Floor Slab', pct:5, group:'30'},
+  {name:'On Casting of 9th Floor Slab', pct:5, group:'30'},
+  {name:'On Casting of 12th Floor Slab', pct:5, group:'30'},
+  {name:'On Casting of 15th Floor Slab', pct:5, group:'50'},
+  {name:'On Casting of 18th Floor Slab', pct:5, group:'50'},
+  {name:'On Casting of 21st Floor Slab', pct:5, group:'50'},
+  {name:'On Casting of 24th Floor Slab', pct:5, group:'50'},
+  {name:'On Casting of 27th Floor Slab', pct:5, group:'50'},
+  {name:'On Casting of 30th Floor Slab', pct:5, group:'50'},
+  {name:'On Casting of 33rd Floor Slab', pct:5, group:'50'},
+  {name:'At the time of Electrical Wiring', pct:5, group:'50'},
+  {name:'At the time of Registration', pct:5, group:'50'}
+];
+
+function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
+function numWords(n){
+  n=Math.round(n);
+  if(n>=10000000) return (n/10000000).toFixed(2)+' Crores';
+  if(n>=100000) return (n/100000).toFixed(2)+' Lakhs';
+  return n.toLocaleString('en-IN');
+}
+
+function updateBHK(){
+  const tower = document.getElementById('block').value;
+  const bhkSel = document.getElementById('bhk');
+  const flatSel = document.getElementById('flat');
+  bhkSel.innerHTML = '<option value="">-- Select BHK --</option>';
+  flatSel.innerHTML = '<option value="">-- Select Flat --</option>';
+  document.getElementById('facing').innerHTML = '<option value="">-- Auto --</option>';
+  resetInfo();
+  if (!tower) return;
+  // Get unique BHK types for this tower
+  const bhks = [...new Set(towerLayouts[tower].map(u => u.bhk))];
+  bhks.forEach(b => { bhkSel.innerHTML += `<option value="${b}">${b}</option>`; });
+}
+
+function updateFlats(){
+  const tower = document.getElementById('block').value;
+  const bhk = document.getElementById('bhk').value;
+  const flatSel = document.getElementById('flat');
+  flatSel.innerHTML = '<option value="">-- Select Flat --</option>';
+  resetInfo();
+  if (!tower || !bhk) return;
+  const allFlats = buildFlatList(tower).filter(f => f.bhk === bhk);
+  allFlats.forEach(f => {
+    flatSel.innerHTML += `<option value="${f.id}">${f.label}</option>`;
+  });
+}
+
+function updateFlatInfo(){
+  const tower = document.getElementById('block').value;
+  const bhk = document.getElementById('bhk').value;
+  const flatId = document.getElementById('flat').value;
+  if (!tower || !bhk || !flatId) return;
+  const flat = buildFlatList(tower).find(f => f.id === flatId);
+  if (!flat) return;
+  document.getElementById('fi-size').textContent = flat.sft.toLocaleString('en-IN');
+  document.getElementById('fi-floor').textContent = flat.floor;
+  document.getElementById('fi-facing').textContent = flat.facing;
+  document.getElementById('fi-bhk').textContent = flat.bhk;
+  document.getElementById('fi-corner').textContent = flat.corner ? '✅ Corner' : '—';
+  // Auto-set corner checkbox
+  document.getElementById('corner').checked = flat.corner;
+  // Auto-set east facing
+  const isEast = flat.facing.toLowerCase().includes('east');
+  document.getElementById('eastFacing').value = isEast ? 100 : 0;
+  calculate();
+}
+
+function resetInfo(){
+  ['fi-size','fi-floor','fi-facing','fi-bhk','fi-corner'].forEach(id=>{
+    const el=document.getElementById(id); if(el) el.textContent='–';
+  });
+  document.getElementById('grandTotalDisplay').textContent='₹ –';
+  document.getElementById('grandTotalWords').textContent='Select a flat to calculate';
+  document.getElementById('baseCostDisplay').textContent='–';
+  document.getElementById('fixedDisplay').textContent='–';
+  ['pay20','pay30','pay50'].forEach(id=>document.getElementById(id).textContent='–');
+  document.getElementById('breakdownBody').innerHTML='<tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see price breakdown</td></tr>';
+  document.getElementById('scheduleBody').innerHTML='<tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see payment schedule</td></tr>';
+  document.getElementById('floorRise').value=0;
+  document.getElementById('eastFacing').value=0;
+}
+
+function calculate(){
+  const tower = document.getElementById('block').value;
+  const bhk = document.getElementById('bhk').value;
+  const flatId = document.getElementById('flat').value;
+  if (!tower || !bhk || !flatId) return;
+
+  const flat = buildFlatList(tower).find(f => f.id === flatId);
+  if (!flat) return;
+
+  const size = flat.sft;
+  const floor = flat.floor;
+  const facing = flat.facing;
+  const isEast = facing.toLowerCase().includes('east');
+
+  // Update flat info
+  document.getElementById('fi-size').textContent = size.toLocaleString('en-IN');
+  document.getElementById('fi-floor').textContent = floor;
+  document.getElementById('fi-facing').textContent = facing;
+  document.getElementById('fi-bhk').textContent = flat.bhk;
+  document.getElementById('fi-corner').textContent = flat.corner ? '✅ Corner' : '—';
+
+  // Rates
+  const basePrice = parseFloat(document.getElementById('basePrice').value) || 6499;
+  const amenities = parseFloat(document.getElementById('amenities').value) || 500;
+  const floorRiseRate = floor >= 6 ? (floor - 5) * 20 : 0;
+  document.getElementById('floorRise').value = floorRiseRate;
+  const eastRate = isEast ? 100 : 0;
+  document.getElementById('eastFacing').value = eastRate;
+  const cornerRate = document.getElementById('corner').checked ? 100 : 0;
+  const viewRate = document.getElementById('viewPremium').checked ? 100 : 0;
+  const corpusRate = parseFloat(document.getElementById('corpus').value) || 50;
+  const maintRate = parseFloat(document.getElementById('maintenance').value) || 54;
+
+  const perSqftTotal = basePrice + amenities + floorRiseRate + eastRate + cornerRate + viewRate + corpusRate + maintRate;
+  const baseCost = perSqftTotal * size;
+
+  const parkingAmt = document.getElementById('parking').checked ? 350000 : 0;
+  const legalAmt = parseFloat(document.getElementById('legal').value) || 25000;
+  const gasAmt = parseFloat(document.getElementById('gas').value) || 30000;
+  const fixedTotal = parkingAmt + legalAmt + gasAmt;
+  const grandTotal = baseCost + fixedTotal;
+
+  // Display
+  document.getElementById('grandTotalDisplay').textContent = fmt(grandTotal);
+  document.getElementById('grandTotalWords').textContent = numWords(grandTotal);
+  document.getElementById('baseCostDisplay').textContent = fmt(baseCost);
+  document.getElementById('fixedDisplay').textContent = fmt(fixedTotal);
+  document.getElementById('pay20').textContent = fmt(grandTotal * 0.20);
+  document.getElementById('pay30').textContent = fmt(grandTotal * 0.30);
+  document.getElementById('pay50').textContent = fmt(grandTotal * 0.50);
+
+  // Breakdown table
+  const rows = [
+    {sl:1, name:'Base Price', rate:`₹${basePrice}/sqft`, sqft:size, amt:basePrice*size},
+    {sl:2, name:'Amenities & Infrastructure', rate:`₹${amenities}/sqft`, sqft:size, amt:amenities*size},
+    {sl:3, name:`Floor Rise (Floor ${floor}${floor>=6?' – ₹'+floorRiseRate+'/sqft':' – N/A'})`, rate:floorRiseRate?`₹${floorRiseRate}/sqft`:'–', sqft:floorRiseRate?size:'–', amt:floorRiseRate*size},
+    {sl:4, name:'East Facing Charges', rate:eastRate?'₹100/sqft':'–', sqft:eastRate?size:'–', amt:eastRate*size},
+    {sl:5, name:'Corner Premium', rate:cornerRate?'₹100/sqft':'–', sqft:cornerRate?size:'–', amt:cornerRate*size},
+    {sl:6, name:'View Premium Charges', rate:viewRate?'₹100/sqft':'–', sqft:viewRate?size:'–', amt:viewRate*size},
+    {sl:7, name:'Corpus Fund', rate:`₹${corpusRate}/sqft`, sqft:size, amt:corpusRate*size},
+    {sl:8, name:'Advance Maintenance (1 Year)', rate:`₹${maintRate}/sqft`, sqft:size, amt:maintRate*size},
+    {sl:9, name:'Car Parking (1 Slot)', rate:parkingAmt?'Fixed':'–', sqft:'–', amt:parkingAmt},
+    {sl:10, name:'Legal & Documentation', rate:'Fixed', sqft:'–', amt:legalAmt},
+    {sl:11, name:'Gas Pipeline Charges', rate:'Fixed', sqft:'–', amt:gasAmt},
+  ];
+
+  let html = '';
+  rows.forEach(r => {
+    const amtStr = r.amt ? fmt(r.amt) : '–';
+    const sqftStr = typeof r.sqft === 'number' ? r.sqft.toLocaleString('en-IN') : r.sqft;
+    html += `<tr><td>${r.sl}</td><td>${r.name}</td><td>${r.rate}</td><td>${sqftStr}</td><td class="amount">${amtStr}</td></tr>`;
+  });
+  html += `<tr class="subtotal"><td colspan="4"><strong>Base Cost (per sqft × ${size.toLocaleString('en-IN')} sqft)</strong></td><td class="amount">${fmt(baseCost)}</td></tr>`;
+  html += `<tr class="subtotal"><td colspan="4"><strong>Fixed Charges Total</strong></td><td class="amount">${fmt(fixedTotal)}</td></tr>`;
+  html += `<tr class="grand-total"><td colspan="4"><strong>GRAND TOTAL (All Inclusive)</strong></td><td class="amount">${fmt(grandTotal)}</td></tr>`;
+  html += `<tr><td colspan="5" style="font-size:0.75rem;color:#666;padding:10px 14px">* GST and Registration charges payable extra as per government rates</td></tr>`;
+  document.getElementById('breakdownBody').innerHTML = html;
+
+  // Payment schedule
+  let cumulative = 0;
+  let schedHtml = '';
+  stages.forEach((s, i) => {
+    let amt = s.fixed ? s.fixed : (grandTotal * s.pct) / 100;
+    cumulative += amt;
+    const rowClass = s.group==='20' ? 'pay-20' : s.group==='30' ? 'pay-30' : 'pay-50';
+    const pctStr = s.fixed ? `₹${(s.fixed/100000).toFixed(1)}L fixed` : `${s.pct}%`;
+    schedHtml += `<tr class="${rowClass}"><td>${i+1}</td><td>${s.name}</td><td>${pctStr}</td><td class="amount">${fmt(amt)}</td><td class="amount cumulative">${fmt(cumulative)}</td></tr>`;
+  });
+  schedHtml += `<tr class="grand-total"><td colspan="3"><strong>Total</strong></td><td class="amount">${fmt(grandTotal)}</td><td class="amount">${fmt(cumulative)}</td></tr>`;
+  document.getElementById('scheduleBody').innerHTML = schedHtml;
+}
+</script>
+</body>
+</html>
