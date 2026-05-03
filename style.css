@@ -528,3 +528,13 @@ a { text-decoration: none; color: inherit; }
 @media (max-width: 480px) {
   .offers-grid { grid-template-columns: 1fr; }
 }
+
+/* ===== PERFORMANCE: Prevent layout shift, improve image delivery ===== */
+img { height: auto; } /* prevent layout shift when width set */
+.overview-image img { width: 100%; height: 420px; object-fit: cover; }
+.gallery-item img { width: 100%; height: 220px; object-fit: cover; }
+.gallery-large img { width: 100%; height: 100%; min-height: 452px; object-fit: cover; }
+.masterplan-image img { width: 100%; height: auto; }
+.fp-img { width: 100%; height: 180px; object-fit: contain; }
+/* Ensure hero bg loads fast */
+.hero { background-size: cover; background-position: center; }
