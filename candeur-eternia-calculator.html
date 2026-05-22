@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
@@ -192,35 +192,51 @@ tr:hover td{background:rgba(201,168,76,0.04)}
  <div class="card">
  <div class="card-title">Grand Total</div>
  <div class="total-box">
- <div class="label">All Inclusive Price</div>
- <div class="value" id="grandTotalDisplay">₹ –</div>
+ <div class="label">Sale Consideration (excl. GST & Stamp Duty)</div>
+ <div class="value" id="grandTotalDisplay">&#8377; -</div>
  <div class="sub" id="grandTotalWords">Select a flat to calculate</div>
  </div>
  <div style="margin-top:16px;display:grid;grid-template-columns:1fr 1fr;gap:10px">
  <div style="background:#111;border-radius:8px;padding:12px;text-align:center">
- <div style="font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:1px">Base Cost</div>
- <div style="font-size:1.1rem;color:#e0e0e0;font-weight:600" id="baseCostDisplay">–</div>
+ <div style="font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:1px">Unit Value</div>
+ <div style="font-size:1.1rem;color:#e0e0e0;font-weight:600" id="baseCostDisplay">-</div>
  </div>
  <div style="background:#111;border-radius:8px;padding:12px;text-align:center">
- <div style="font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:1px">Fixed Charges</div>
- <div style="font-size:1.1rem;color:#e0e0e0;font-weight:600" id="fixedDisplay">–</div>
+ <div style="font-size:0.7rem;color:#666;text-transform:uppercase;letter-spacing:1px">Reg. Charges</div>
+ <div style="font-size:1.1rem;color:#e0e0e0;font-weight:600" id="fixedDisplay">-</div>
  </div>
+ <!-- GST -->
+ <div style="background:rgba(251,191,36,0.1);border:1px solid rgba(251,191,36,0.25);border-radius:8px;padding:12px;text-align:center">
+ <div style="font-size:0.7rem;color:#fbbf24;text-transform:uppercase;letter-spacing:1px">GST @ 5%</div>
+ <div style="font-size:1.1rem;color:#fbbf24;font-weight:700" id="gstDisplay">-</div>
+ </div>
+ <!-- Stamp Duty -->
+ <div style="background:rgba(251,146,60,0.1);border:1px solid rgba(251,146,60,0.25);border-radius:8px;padding:12px;text-align:center">
+ <div style="font-size:0.7rem;color:#fb923c;text-transform:uppercase;letter-spacing:1px">Stamp Duty ~6%</div>
+ <div style="font-size:1.1rem;color:#fb923c;font-weight:700" id="stampDisplay">-</div>
+ </div>
+ <!-- All-in total -->
+ <div style="background:rgba(201,168,76,0.15);border:1px solid rgba(201,168,76,0.4);border-radius:8px;padding:14px;text-align:center;grid-column:span 2">
+ <div style="font-size:0.7rem;color:#e0c070;text-transform:uppercase;letter-spacing:1px">All-In Total (incl. GST + Stamp Duty)</div>
+ <div style="font-size:1.4rem;color:#E8B84B;font-weight:800;font-family:'Playfair Display',serif" id="allInDisplay">-</div>
+ </div>
+ <!-- Payment plan -->
  <div style="background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.2);border-radius:8px;padding:12px;text-align:center">
  <div style="font-size:0.7rem;color:#86efac;text-transform:uppercase;letter-spacing:1px">20% on Booking</div>
- <div style="font-size:1.1rem;color:#86efac;font-weight:700" id="pay20">–</div>
+ <div style="font-size:1.1rem;color:#86efac;font-weight:700" id="pay20">-</div>
  </div>
  <div style="background:rgba(59,130,246,0.1);border:1px solid rgba(59,130,246,0.2);border-radius:8px;padding:12px;text-align:center">
  <div style="font-size:0.7rem;color:#93c5fd;text-transform:uppercase;letter-spacing:1px">30% Installments</div>
- <div style="font-size:1.1rem;color:#93c5fd;font-weight:700" id="pay30">–</div>
+ <div style="font-size:1.1rem;color:#93c5fd;font-weight:700" id="pay30">-</div>
  </div>
  <div style="background:rgba(168,85,247,0.1);border:1px solid rgba(168,85,247,0.2);border-radius:8px;padding:12px;text-align:center;grid-column:span 2">
  <div style="font-size:0.7rem;color:#d8b4fe;text-transform:uppercase;letter-spacing:1px">50% on Possession</div>
- <div style="font-size:1.3rem;color:#d8b4fe;font-weight:700" id="pay50">–</div>
+ <div style="font-size:1.3rem;color:#d8b4fe;font-weight:700" id="pay50">-</div>
  </div>
  </div>
- <div class="note" style="margin-top:16px">GST and Registration charges are payable extra as per applicable government rates. All prices are subject to change without prior notice.</div>
+ <div class="note" style="margin-top:16px">* Stamp Duty ~6% is an estimate based on Telangana prevailing rates. Actual amount depends on registration value. GST 5% applicable on sale consideration. TDS 1% deducted at source on each installment.</div>
  </div>
- <button class="btn-print" onclick="window.print()" style="width:100%;margin-top:0">🖨️ Print / Download PDF</button>
+ <button class="btn-print" onclick="window.print()" style="width:100%;margin-top:0">&#128424; Print / Download PDF</button>
  </div>
 </div>
 
@@ -247,7 +263,7 @@ tr:hover td{background:rgba(201,168,76,0.04)}
  </div>
  <table>
  <thead>
- <tr><th>Sl.</th><th>Stage of Payment</th><th>%</th><th style="text-align:right">Amount (₹)</th><th style="text-align:right">Cumulative (₹)</th></tr>
+ <tr><th>Sl.</th><th>Stage of Payment</th><th>%</th><th style="text-align:right">Installment (₹)</th><th style="text-align:right">TDS 1%</th><th style="text-align:right">GST 5%</th><th style="text-align:right">Total (incl GST, excl TDS)</th><th style="text-align:right">Total (incl GST & TDS)</th></tr>
  </thead>
  <tbody id="scheduleBody">
  <tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see payment schedule</td></tr>
@@ -264,266 +280,203 @@ tr:hover td{background:rgba(201,168,76,0.04)}
 </div><!-- end container -->
 
 <script>
-// ===== FLAT DATA (from official layout images) =====
-// Each tower has a fixed layout per floor. Flat numbers = floor*100 + unit (e.g. floor 3, unit 2 = flat 302)
-// Tower A: 6 flats/floor, 32 floors | Tower B: 10 flats/floor, 32 floors
-// Tower C: 6 flats/floor, 32 floors | Tower D: 8 flats/floor, 35 floors
-
-const towerLayouts = {
- A: [
- // 6 flats per floor, all 3 BHK
- {unit:1, bhk:'3 BHK', sft:2192, corner:true, facing:'East / North-East'},
- {unit:2, bhk:'3 BHK', sft:2004, corner:false, facing:'East'},
- {unit:3, bhk:'3 BHK', sft:1874, corner:false, facing:'South-East'},
- {unit:4, bhk:'3 BHK', sft:2192, corner:true, facing:'West / North-West'},
- {unit:5, bhk:'3 BHK', sft:2004, corner:false, facing:'West'},
- {unit:6, bhk:'3 BHK', sft:2192, corner:true, facing:'North-West'},
- ],
- B: [
- // 10 flats per floor
- {unit:1, bhk:'2 BHK', sft:1467, corner:true, facing:'East'},
- {unit:2, bhk:'2.5 BHK', sft:1385, corner:false, facing:'East'},
- {unit:3, bhk:'3 BHK', sft:1608, corner:false, facing:'South-East'},
- {unit:4, bhk:'3 BHK', sft:1874, corner:false, facing:'South'},
- {unit:5, bhk:'3 BHK', sft:2004, corner:false, facing:'South-West'},
- {unit:6, bhk:'3 BHK', sft:2004, corner:false, facing:'North-West'},
- {unit:7, bhk:'3 BHK', sft:1874, corner:false, facing:'North'},
- {unit:8, bhk:'3 BHK', sft:1608, corner:false, facing:'North-East'},
- {unit:9, bhk:'2.5 BHK', sft:1385, corner:false, facing:'West'},
- {unit:10, bhk:'2 BHK', sft:1467, corner:true, facing:'West'},
- ],
- C: [
- // 6 flats per floor
- {unit:1, bhk:'2.5 BHK', sft:1590, corner:true, facing:'East'},
- {unit:2, bhk:'3 BHK', sft:1799, corner:false, facing:'East'},
- {unit:3, bhk:'3 BHK', sft:2182, corner:true, facing:'South-East'},
- {unit:4, bhk:'3 BHK', sft:2182, corner:true, facing:'South-West'},
- {unit:5, bhk:'3 BHK', sft:1799, corner:false, facing:'West'},
- {unit:6, bhk:'2.5 BHK', sft:1590, corner:true, facing:'West'},
- ],
- D: [
- // 8 flats per floor, 35 floors
- {unit:1, bhk:'2 BHK', sft:1546, corner:true, facing:'East'},
- {unit:2, bhk:'3 BHK', sft:1874, corner:false, facing:'East'},
- {unit:3, bhk:'3 BHK', sft:1874, corner:false, facing:'South-East'},
- {unit:4, bhk:'3 BHK', sft:2182, corner:true, facing:'South'},
- {unit:5, bhk:'3 BHK', sft:2182, corner:true, facing:'North'},
- {unit:6, bhk:'3 BHK', sft:1874, corner:false, facing:'North-West'},
- {unit:7, bhk:'3 BHK', sft:1874, corner:false, facing:'West'},
- {unit:8, bhk:'2 BHK', sft:1546, corner:true, facing:'West'},
- ]
+const towerLayouts={
+  A:[
+    {unit:1,bhk:'3 BHK',sft:2192,corner:true, facing:'East / North-East'},
+    {unit:2,bhk:'3 BHK',sft:2004,corner:false,facing:'East'},
+    {unit:3,bhk:'3 BHK',sft:1874,corner:false,facing:'South-East'},
+    {unit:4,bhk:'3 BHK',sft:2192,corner:true, facing:'West / North-West'},
+    {unit:5,bhk:'3 BHK',sft:2004,corner:false,facing:'West'},
+    {unit:6,bhk:'3 BHK',sft:2192,corner:true, facing:'North-West'},
+  ],
+  B:[
+    {unit:1, bhk:'2 BHK',  sft:1467,corner:true, facing:'East'},
+    {unit:2, bhk:'2.5 BHK',sft:1385,corner:false,facing:'East'},
+    {unit:3, bhk:'3 BHK',  sft:1608,corner:false,facing:'South-East'},
+    {unit:4, bhk:'3 BHK',  sft:1874,corner:false,facing:'South'},
+    {unit:5, bhk:'3 BHK',  sft:2004,corner:false,facing:'South-West'},
+    {unit:6, bhk:'3 BHK',  sft:2004,corner:false,facing:'North-West'},
+    {unit:7, bhk:'3 BHK',  sft:1874,corner:false,facing:'North'},
+    {unit:8, bhk:'3 BHK',  sft:1608,corner:false,facing:'North-East'},
+    {unit:9, bhk:'2.5 BHK',sft:1385,corner:false,facing:'West'},
+    {unit:10,bhk:'2 BHK',  sft:1467,corner:true, facing:'West'},
+  ],
+  C:[
+    {unit:1,bhk:'2.5 BHK',sft:1590,corner:true, facing:'East'},
+    {unit:2,bhk:'3 BHK',  sft:1799,corner:false,facing:'East'},
+    {unit:3,bhk:'3 BHK',  sft:2182,corner:true, facing:'South-East'},
+    {unit:4,bhk:'3 BHK',  sft:2182,corner:true, facing:'South-West'},
+    {unit:5,bhk:'3 BHK',  sft:1799,corner:false,facing:'West'},
+    {unit:6,bhk:'2.5 BHK',sft:1590,corner:true, facing:'West'},
+  ],
+  D:[
+    {unit:1,bhk:'2 BHK',sft:1546,corner:true, facing:'East'},
+    {unit:2,bhk:'3 BHK',sft:1874,corner:false,facing:'East'},
+    {unit:3,bhk:'3 BHK',sft:1874,corner:false,facing:'South-East'},
+    {unit:4,bhk:'3 BHK',sft:2182,corner:true, facing:'South'},
+    {unit:5,bhk:'3 BHK',sft:2182,corner:true, facing:'North'},
+    {unit:6,bhk:'3 BHK',sft:1874,corner:false,facing:'North-West'},
+    {unit:7,bhk:'3 BHK',sft:1874,corner:false,facing:'West'},
+    {unit:8,bhk:'2 BHK',sft:1546,corner:true, facing:'West'},
+  ]
 };
-
-const towerFloors = {A:32, B:32, C:32, D:35};
-
-// Build flat list dynamically from layout
-function buildFlatList(tower) {
- const layout = towerLayouts[tower];
- const floors = towerFloors[tower];
- const flats = [];
- for (let f = 1; f <= floors; f++) {
- layout.forEach(unit => {
- flats.push({
- id: `${tower}${f}0${unit.unit}`,
- label: `${tower}-${f}0${unit.unit} | Floor ${f} | Unit ${unit.unit} | ${unit.bhk} | ${unit.sft} sft | ${unit.facing}`,
- floor: f,
- unit: unit.unit,
- bhk: unit.bhk,
- sft: unit.sft,
- corner: unit.corner,
- facing: unit.facing
- });
- });
- }
- return flats;
-}
-
-// Payment schedule stages
-const stages = [
- {name:'Booking Advance Amount', pct:0, fixed:400000, group:'20'},
- {name:'Within 21 days of Booking (incl. Token Advance)', pct:20, group:'20'},
- {name:'On Casting of Foundation', pct:5, group:'30'},
- {name:'On Casting of 2nd Basement Slab', pct:5, group:'30'},
- {name:'On Casting of 4th Basement Slab', pct:5, group:'30'},
- {name:'On Casting of 3rd Floor Slab', pct:5, group:'30'},
- {name:'On Casting of 6th Floor Slab', pct:5, group:'30'},
- {name:'On Casting of 9th Floor Slab', pct:5, group:'30'},
- {name:'On Casting of 12th Floor Slab', pct:5, group:'30'},
- {name:'On Casting of 15th Floor Slab', pct:5, group:'50'},
- {name:'On Casting of 18th Floor Slab', pct:5, group:'50'},
- {name:'On Casting of 21st Floor Slab', pct:5, group:'50'},
- {name:'On Casting of 24th Floor Slab', pct:5, group:'50'},
- {name:'On Casting of 27th Floor Slab', pct:5, group:'50'},
- {name:'On Casting of 30th Floor Slab', pct:5, group:'50'},
- {name:'On Casting of 33rd Floor Slab', pct:5, group:'50'},
- {name:'At the time of Electrical Wiring', pct:5, group:'50'},
- {name:'At the time of Registration', pct:5, group:'50'}
+const towerFloors={A:32,B:32,C:32,D:35};
+const RATES={basePrice:6499,floorCharge:40,cornerPremium:100,viewPremium:100,amenities:500,corpusFund:50,maintenance:54,maintenanceGST:0.18,carParking:350000,legal:25000,pipedGas:30000,tds:0.01,gst:0.05,stampDuty:0.06};
+const stages=[
+  {name:'Booking Advance - Payable within 21 days from Date of Booking',pct:20,group:'20'},
+  {name:'On Casting of Foundation',pct:5,group:'30'},
+  {name:'On Casting of 2nd Basement Slab',pct:5,group:'30'},
+  {name:'On Casting of 4th Basement Slab',pct:5,group:'30'},
+  {name:'On Casting of 3rd Floor Slab',pct:5,group:'30'},
+  {name:'On Casting of 6th Floor Slab',pct:5,group:'30'},
+  {name:'On Casting of 9th Floor Slab',pct:5,group:'30'},
+  {name:'On Casting of 12th Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 15th Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 18th Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 21st Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 24th Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 27th Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 30th Floor Slab',pct:5,group:'50'},
+  {name:'On Casting of 33rd Floor Slab',pct:5,group:'50'},
+  {name:'At the time of Electrical Wiring',pct:5,group:'50'},
+  {name:'At the time of Registration',pct:5,group:'50'},
 ];
-
-function fmt(n){return '₹'+Math.round(n).toLocaleString('en-IN')}
-function numWords(n){
- n=Math.round(n);
- if(n>=10000000) return (n/10000000).toFixed(2)+' Crores';
- if(n>=100000) return (n/100000).toFixed(2)+' Lakhs';
- return n.toLocaleString('en-IN');
+function buildFlatList(tower){
+  const layout=towerLayouts[tower],floors=towerFloors[tower],flats=[];
+  for(let f=1;f<=floors;f++) layout.forEach(u=>flats.push({id:`${tower}${f}0${u.unit}`,label:`${tower}-${f}0${u.unit} | Floor ${f} | Unit ${u.unit} | ${u.bhk} | ${u.sft} sft | ${u.facing}`,floor:f,unit:u.unit,bhk:u.bhk,sft:u.sft,corner:u.corner,facing:u.facing}));
+  return flats;
 }
-
+function fmt(n){return String.fromCharCode(8377)+Math.round(n).toLocaleString('en-IN');}
+function numWords(n){n=Math.round(n);if(n>=10000000)return(n/10000000).toFixed(2)+' Crores';if(n>=100000)return(n/100000).toFixed(2)+' Lakhs';return n.toLocaleString('en-IN');}
 function updateBHK(){
- const tower = document.getElementById('block').value;
- const bhkSel = document.getElementById('bhk');
- const flatSel = document.getElementById('flat');
- bhkSel.innerHTML = '<option value="">-- Select BHK --</option>';
- flatSel.innerHTML = '<option value="">-- Select Flat --</option>';
- document.getElementById('facing').innerHTML = '<option value="">-- Auto --</option>';
- resetInfo();
- if (!tower) return;
- // Get unique BHK types for this tower
- const bhks = [...new Set(towerLayouts[tower].map(u => u.bhk))];
- bhks.forEach(b => { bhkSel.innerHTML += `<option value="${b}">${b}</option>`; });
+  const t=document.getElementById('block').value,b=document.getElementById('bhk');
+  b.innerHTML='<option value="">-- Select BHK --</option>';
+  document.getElementById('flat').innerHTML='<option value="">-- Select Flat --</option>';
+  resetInfo(); if(!t)return;
+  [...new Set(towerLayouts[t].map(u=>u.bhk))].forEach(x=>b.innerHTML+=`<option value="${x}">${x}</option>`);
 }
-
 function updateFlats(){
- const tower = document.getElementById('block').value;
- const bhk = document.getElementById('bhk').value;
- const flatSel = document.getElementById('flat');
- flatSel.innerHTML = '<option value="">-- Select Flat --</option>';
- resetInfo();
- if (!tower || !bhk) return;
- const allFlats = buildFlatList(tower).filter(f => f.bhk === bhk);
- allFlats.forEach(f => {
- flatSel.innerHTML += `<option value="${f.id}">${f.label}</option>`;
- });
+  const t=document.getElementById('block').value,bk=document.getElementById('bhk').value,s=document.getElementById('flat');
+  s.innerHTML='<option value="">-- Select Flat --</option>'; resetInfo(); if(!t||!bk)return;
+  buildFlatList(t).filter(f=>f.bhk===bk).forEach(f=>s.innerHTML+=`<option value="${f.id}">${f.label}</option>`);
 }
-
 function updateFlatInfo(){
- const tower = document.getElementById('block').value;
- const bhk = document.getElementById('bhk').value;
- const flatId = document.getElementById('flat').value;
- if (!tower || !bhk || !flatId) return;
- const flat = buildFlatList(tower).find(f => f.id === flatId);
- if (!flat) return;
- document.getElementById('fi-size').textContent = flat.sft.toLocaleString('en-IN');
- document.getElementById('fi-floor').textContent = flat.floor;
- document.getElementById('fi-facing').textContent = flat.facing;
- document.getElementById('fi-bhk').textContent = flat.bhk;
- document.getElementById('fi-corner').textContent = flat.corner ? '✅ Corner' : '—';
- // Auto-set corner checkbox
- document.getElementById('corner').checked = flat.corner;
- // Auto-set east facing
- const isEast = flat.facing.toLowerCase().includes('east');
- document.getElementById('eastFacing').value = isEast ? 100 : 0;
- calculate();
+  const t=document.getElementById('block').value,bk=document.getElementById('bhk').value,id=document.getElementById('flat').value;
+  if(!t||!bk||!id)return;
+  const flat=buildFlatList(t).find(f=>f.id===id); if(!flat)return;
+  document.getElementById('fi-size').textContent=flat.sft.toLocaleString('en-IN');
+  document.getElementById('fi-floor').textContent=flat.floor;
+  document.getElementById('fi-facing').textContent=flat.facing;
+  document.getElementById('fi-bhk').textContent=flat.bhk;
+  document.getElementById('fi-corner').textContent=flat.corner?'Corner':'-';
+  document.getElementById('corner').checked=flat.corner;
+  calculate();
 }
-
 function resetInfo(){
- ['fi-size','fi-floor','fi-facing','fi-bhk','fi-corner'].forEach(id=>{
- const el=document.getElementById(id); if(el) el.textContent='–';
- });
- document.getElementById('grandTotalDisplay').textContent='₹ –';
- document.getElementById('grandTotalWords').textContent='Select a flat to calculate';
- document.getElementById('baseCostDisplay').textContent='–';
- document.getElementById('fixedDisplay').textContent='–';
- ['pay20','pay30','pay50'].forEach(id=>document.getElementById(id).textContent='–');
- document.getElementById('breakdownBody').innerHTML='<tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see price breakdown</td></tr>';
- document.getElementById('scheduleBody').innerHTML='<tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see payment schedule</td></tr>';
- document.getElementById('floorRise').value=0;
- document.getElementById('eastFacing').value=0;
+  ['fi-size','fi-floor','fi-facing','fi-bhk','fi-corner'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='-';});
+  document.getElementById('grandTotalDisplay').textContent=String.fromCharCode(8377)+' -';
+  document.getElementById('grandTotalWords').textContent='Select a flat to calculate';
+  document.getElementById('baseCostDisplay').textContent='-';
+  document.getElementById('fixedDisplay').textContent='-';
+  ['gstDisplay','stampDisplay','allInDisplay'].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent='-';});
+  ['pay20','pay30','pay50'].forEach(id=>document.getElementById(id).textContent='-');
+  document.getElementById('breakdownBody').innerHTML='<tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see price breakdown</td></tr>';
+  document.getElementById('scheduleBody').innerHTML='<tr><td colspan="8" style="text-align:center;color:#555;padding:24px">Select a flat to see payment schedule</td></tr>';
+  document.getElementById('floorRise').value=0;
+  document.getElementById('eastFacing').value=0;
 }
-
 function calculate(){
- const tower = document.getElementById('block').value;
- const bhk = document.getElementById('bhk').value;
- const flatId = document.getElementById('flat').value;
- if (!tower || !bhk || !flatId) return;
-
- const flat = buildFlatList(tower).find(f => f.id === flatId);
- if (!flat) return;
-
- const size = flat.sft;
- const floor = flat.floor;
- const facing = flat.facing;
- const isEast = facing.toLowerCase().includes('east');
-
- // Update flat info
- document.getElementById('fi-size').textContent = size.toLocaleString('en-IN');
- document.getElementById('fi-floor').textContent = floor;
- document.getElementById('fi-facing').textContent = facing;
- document.getElementById('fi-bhk').textContent = flat.bhk;
- document.getElementById('fi-corner').textContent = flat.corner ? '✅ Corner' : '—';
-
- // Rates
- const basePrice = parseFloat(document.getElementById('basePrice').value) || 6499;
- const amenities = parseFloat(document.getElementById('amenities').value) || 500;
- const floorRiseRate = floor >= 6 ? (floor - 5) * 20 : 0;
- document.getElementById('floorRise').value = floorRiseRate;
- const eastRate = isEast ? 100 : 0;
- document.getElementById('eastFacing').value = eastRate;
- const cornerRate = document.getElementById('corner').checked ? 100 : 0;
- const viewRate = document.getElementById('viewPremium').checked ? 100 : 0;
- const corpusRate = parseFloat(document.getElementById('corpus').value) || 50;
- const maintRate = parseFloat(document.getElementById('maintenance').value) || 54;
-
- const perSqftTotal = basePrice + amenities + floorRiseRate + eastRate + cornerRate + viewRate + corpusRate + maintRate;
- const baseCost = perSqftTotal * size;
-
- const parkingAmt = document.getElementById('parking').checked ? 350000 : 0;
- const legalAmt = parseFloat(document.getElementById('legal').value) || 25000;
- const gasAmt = parseFloat(document.getElementById('gas').value) || 30000;
- const fixedTotal = parkingAmt + legalAmt + gasAmt;
- const grandTotal = baseCost + fixedTotal;
-
- // Display
- document.getElementById('grandTotalDisplay').textContent = fmt(grandTotal);
- document.getElementById('grandTotalWords').textContent = numWords(grandTotal);
- document.getElementById('baseCostDisplay').textContent = fmt(baseCost);
- document.getElementById('fixedDisplay').textContent = fmt(fixedTotal);
- document.getElementById('pay20').textContent = fmt(grandTotal * 0.20);
- document.getElementById('pay30').textContent = fmt(grandTotal * 0.30);
- document.getElementById('pay50').textContent = fmt(grandTotal * 0.50);
-
- // Breakdown table
- const rows = [
- {sl:1, name:'Base Price', rate:`₹${basePrice}/sqft`, sqft:size, amt:basePrice*size},
- {sl:2, name:'Amenities & Infrastructure', rate:`₹${amenities}/sqft`, sqft:size, amt:amenities*size},
- {sl:3, name:`Floor Rise (Floor ${floor}${floor>=6?' – ₹'+floorRiseRate+'/sqft':' – N/A'})`, rate:floorRiseRate?`₹${floorRiseRate}/sqft`:'–', sqft:floorRiseRate?size:'–', amt:floorRiseRate*size},
- {sl:4, name:'East Facing Charges', rate:eastRate?'₹100/sqft':'–', sqft:eastRate?size:'–', amt:eastRate*size},
- {sl:5, name:'Corner Premium', rate:cornerRate?'₹100/sqft':'–', sqft:cornerRate?size:'–', amt:cornerRate*size},
- {sl:6, name:'View Premium Charges', rate:viewRate?'₹100/sqft':'–', sqft:viewRate?size:'–', amt:viewRate*size},
- {sl:7, name:'Corpus Fund', rate:`₹${corpusRate}/sqft`, sqft:size, amt:corpusRate*size},
- {sl:8, name:'Advance Maintenance (1 Year)', rate:`₹${maintRate}/sqft`, sqft:size, amt:maintRate*size},
- {sl:9, name:'Car Parking (1 Slot)', rate:parkingAmt?'Fixed':'–', sqft:'–', amt:parkingAmt},
- {sl:10, name:'Legal & Documentation', rate:'Fixed', sqft:'–', amt:legalAmt},
- {sl:11, name:'Gas Pipeline Charges', rate:'Fixed', sqft:'–', amt:gasAmt},
- ];
-
- let html = '';
- rows.forEach(r => {
- const amtStr = r.amt ? fmt(r.amt) : '–';
- const sqftStr = typeof r.sqft === 'number' ? r.sqft.toLocaleString('en-IN') : r.sqft;
- html += `<tr><td>${r.sl}</td><td>${r.name}</td><td>${r.rate}</td><td>${sqftStr}</td><td class="amount">${amtStr}</td></tr>`;
- });
- html += `<tr class="subtotal"><td colspan="4"><strong>Base Cost (per sqft × ${size.toLocaleString('en-IN')} sqft)</strong></td><td class="amount">${fmt(baseCost)}</td></tr>`;
- html += `<tr class="subtotal"><td colspan="4"><strong>Fixed Charges Total</strong></td><td class="amount">${fmt(fixedTotal)}</td></tr>`;
- html += `<tr class="grand-total"><td colspan="4"><strong>GRAND TOTAL (All Inclusive)</strong></td><td class="amount">${fmt(grandTotal)}</td></tr>`;
- html += `<tr><td colspan="5" style="font-size:0.75rem;color:#666;padding:10px 14px">* GST and Registration charges payable extra as per government rates</td></tr>`;
- document.getElementById('breakdownBody').innerHTML = html;
-
- // Payment schedule
- let cumulative = 0;
- let schedHtml = '';
- stages.forEach((s, i) => {
- let amt = s.fixed ? s.fixed : (grandTotal * s.pct) / 100;
- cumulative += amt;
- const rowClass = s.group==='20' ? 'pay-20' : s.group==='30' ? 'pay-30' : 'pay-50';
- const pctStr = s.fixed ? `₹${(s.fixed/100000).toFixed(1)}L fixed` : `${s.pct}%`;
- schedHtml += `<tr class="${rowClass}"><td>${i+1}</td><td>${s.name}</td><td>${pctStr}</td><td class="amount">${fmt(amt)}</td><td class="amount cumulative">${fmt(cumulative)}</td></tr>`;
- });
- schedHtml += `<tr class="grand-total"><td colspan="3"><strong>Total</strong></td><td class="amount">${fmt(grandTotal)}</td><td class="amount">${fmt(cumulative)}</td></tr>`;
- document.getElementById('scheduleBody').innerHTML = schedHtml;
+  const t=document.getElementById('block').value,bk=document.getElementById('bhk').value,id=document.getElementById('flat').value;
+  if(!t||!bk||!id)return;
+  const flat=buildFlatList(t).find(f=>f.id===id); if(!flat)return;
+  const sft=flat.sft,floor=flat.floor;
+  document.getElementById('fi-size').textContent=sft.toLocaleString('en-IN');
+  document.getElementById('fi-floor').textContent=floor;
+  document.getElementById('fi-facing').textContent=flat.facing;
+  document.getElementById('fi-bhk').textContent=flat.bhk;
+  document.getElementById('fi-corner').textContent=flat.corner?'Corner':'-';
+  const basePrice=parseFloat(document.getElementById('basePrice').value)||RATES.basePrice;
+  const amenities=parseFloat(document.getElementById('amenities').value)||RATES.amenities;
+  const floorChg=RATES.floorCharge;
+  document.getElementById('floorRise').value=floorChg;
+  document.getElementById('eastFacing').value=0;
+  const cornerRate=document.getElementById('corner').checked?RATES.cornerPremium:0;
+  const viewRate=document.getElementById('viewPremium').checked?RATES.viewPremium:0;
+  const corpusRate=parseFloat(document.getElementById('corpus').value)||RATES.corpusFund;
+  const maintRate=parseFloat(document.getElementById('maintenance').value)||RATES.maintenance;
+  const costOfUnit=(basePrice+floorChg+cornerRate+viewRate)*sft;
+  const amenitiesAmt=amenities*sft;
+  const unitValue=costOfUnit+amenitiesAmt;
+  const parkingAmt=document.getElementById('parking').checked?RATES.carParking:0;
+  const saleConsid=unitValue+parkingAmt;
+  const corpusAmt=corpusRate*sft;
+  const maintAmt=maintRate*sft;
+  const maintGSTAmt=maintAmt*RATES.maintenanceGST;
+  const legalAmt=parseFloat(document.getElementById('legal').value)||RATES.legal;
+  const gasAmt=parseFloat(document.getElementById('gas').value)||RATES.pipedGas;
+  const regTotal=corpusAmt+maintAmt+maintGSTAmt+legalAmt+gasAmt;
+  const grandTotal=saleConsid+regTotal;
+  const gstOnSale=saleConsid*RATES.gst;
+  const stampDuty=saleConsid*RATES.stampDuty;
+  const allInTotal=grandTotal+gstOnSale+stampDuty;
+  document.getElementById('grandTotalDisplay').textContent=fmt(grandTotal);
+  document.getElementById('gstDisplay').textContent=fmt(gstOnSale);
+  document.getElementById('stampDisplay').textContent=fmt(stampDuty);
+  document.getElementById('allInDisplay').textContent=fmt(allInTotal);
+  document.getElementById('grandTotalWords').textContent=numWords(grandTotal);
+  document.getElementById('baseCostDisplay').textContent=fmt(unitValue);
+  document.getElementById('fixedDisplay').textContent=fmt(regTotal);
+  document.getElementById('pay20').textContent=fmt(saleConsid*0.20);
+  document.getElementById('pay30').textContent=fmt(saleConsid*0.30);
+  document.getElementById('pay50').textContent=fmt(saleConsid*0.50);
+  const R=String.fromCharCode(8377);
+  const rows=[
+    {sl:1,name:'Basic Price',rate:`${R}${basePrice}/sqft`,sqft:sft,amt:basePrice*sft},
+    {sl:2,name:'Charges for Floor',rate:`${R}${floorChg}/sqft`,sqft:sft,amt:floorChg*sft},
+    {sl:3,name:'Corner Premium',rate:cornerRate?`${R}100/sqft`:'-',sqft:cornerRate?sft:'-',amt:cornerRate*sft},
+    {sl:4,name:'Charges for View Premium',rate:viewRate?`${R}100/sqft`:'-',sqft:viewRate?sft:'-',amt:viewRate*sft},
+    {sl:'',name:'<strong>Cost of the Unit</strong>',rate:'',sqft:'',amt:costOfUnit,sub:true},
+    {sl:5,name:'Amenities & Infrastructure',rate:`${R}${amenities}/sqft`,sqft:sft,amt:amenitiesAmt},
+    {sl:'',name:'<strong>Unit Value</strong>',rate:'',sqft:'',amt:unitValue,sub:true},
+    {sl:6,name:'Charges for Car Parking (1 Slot)',rate:'Fixed',sqft:'-',amt:parkingAmt},
+    {sl:'',name:'<strong>Total Sale Consideration</strong>',rate:'',sqft:'',amt:saleConsid,sub:true},
+    {sl:7,name:'Corpus Fund',rate:`${R}${corpusRate}/sqft`,sqft:sft,amt:corpusAmt},
+    {sl:8,name:'Maintenance Charges (Per Sq.Ft. per Year)',rate:`${R}${maintRate}/sqft`,sqft:sft,amt:maintAmt},
+    {sl:9,name:'Maintenance GST @ 18%',rate:'18%',sqft:'-',amt:maintGSTAmt},
+    {sl:10,name:'Legal & Documentation Charges',rate:'Fixed',sqft:'-',amt:legalAmt},
+    {sl:11,name:'Piped Gas Charges',rate:'Fixed',sqft:'-',amt:gasAmt},
+    {sl:'',name:'<strong>Amount Payable at Registration</strong>',rate:'',sqft:'',amt:regTotal,sub:true},
+  ];
+  let html='';
+  rows.forEach(r=>{
+    const a=r.amt?fmt(r.amt):'-',s=typeof r.sqft==='number'?r.sqft.toLocaleString('en-IN'):r.sqft;
+    html+=r.sub?`<tr class="subtotal"><td colspan="4">${r.name}</td><td class="amount">${a}</td></tr>`:`<tr><td>${r.sl}</td><td>${r.name}</td><td>${r.rate}</td><td>${s}</td><td class="amount">${a}</td></tr>`;
+  });
+  html+=`<tr class="grand-total"><td colspan="4"><strong>Grand Total (Excl. GST & Stamp Duty)</strong></td><td class="amount">${fmt(grandTotal)}</td></tr>`;
+  html+=`<tr style="background:rgba(251,191,36,0.06)"><td>12</td><td>GST @ 5% on Sale Consideration</td><td>5%</td><td>-</td><td class="amount" style="color:#fbbf24">${fmt(gstOnSale)}</td></tr>`;
+  html+=`<tr style="background:rgba(251,146,60,0.06)"><td>13</td><td>Stamp Duty ~6% (Telangana estimate)</td><td>~6%</td><td>-</td><td class="amount" style="color:#fb923c">${fmt(stampDuty)}</td></tr>`;
+  html+=`<tr class="grand-total"><td colspan="4"><strong>All-In Total (incl. GST + Stamp Duty)</strong></td><td class="amount" style="color:#E8B84B;font-size:1.05rem">${fmt(allInTotal)}</td></tr>`;
+  html+=`<tr><td colspan="5" style="font-size:0.72rem;color:#666;padding:10px 14px">* GST 5% & TDS 1% on each installment. Stamp Duty payable extra.</td></tr>`;
+  document.getElementById('breakdownBody').innerHTML=html;
+  let sh='';
+  stages.forEach((s,i)=>{
+    const inst=saleConsid*s.pct/100,tds=inst*RATES.tds,gst=inst*RATES.gst;
+    const rc=s.group==='20'?'pay-20':s.group==='30'?'pay-30':'pay-50';
+    sh+=`<tr class="${rc}"><td>${i+1}</td><td>${s.name}</td><td>${s.pct}%</td><td class="amount">${fmt(inst)}</td><td class="amount">${fmt(tds)}</td><td class="amount">${fmt(gst)}</td><td class="amount">${fmt(inst+gst)}</td><td class="amount">${fmt(inst+gst+tds)}</td></tr>`;
+  });
+  const tg=saleConsid*RATES.gst,tt=saleConsid*RATES.tds;
+  sh+=`<tr class="grand-total"><td colspan="3"><strong>Total Sale Consideration (incl. GST & TDS)</strong></td><td class="amount">${fmt(saleConsid)}</td><td class="amount">${fmt(tt)}</td><td class="amount">${fmt(tg)}</td><td class="amount">${fmt(saleConsid+tg)}</td><td class="amount">${fmt(saleConsid+tg+tt)}</td></tr>`;
+  document.getElementById('scheduleBody').innerHTML=sh;
 }
+window.addEventListener('scroll',()=>{const h=document.getElementById('header');if(h)h.style.boxShadow=window.scrollY>50?'0 2px 20px rgba(0,0,0,0.4)':'none';});
 </script>
 </body>
 </html>
+
+
+
+
+
 
 
 
