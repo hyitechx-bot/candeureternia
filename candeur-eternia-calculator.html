@@ -3,7 +3,24 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Candeur Eternia – Price Calculator</title>
+<title>Candeur Eternia Price Calculator - 2, 2.5 and 3 BHK Apartment Cost Estimator | Bachupally</title>
+<meta name="description" content="Use Candeur Eternia's price calculator to estimate your 2 BHK, 2.5 BHK or 3 BHK apartment cost in Bachupally, Hyderabad. Includes GST, registration and stamp duty. RERA: P02200010709." />
+<meta name="keywords" content="Candeur Eternia price calculator, apartment cost calculator Bachupally, 2 BHK price Candeur Eternia, 3 BHK cost Hyderabad, home loan EMI calculator Bachupally" />
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="https://candeureternia.com/candeur-eternia-calculator.html" />
+<meta property="og:title" content="Candeur Eternia Price Calculator - Estimate Your Apartment Cost" />
+<meta property="og:description" content="Calculate the total cost of your 2 BHK, 2.5 BHK or 3 BHK apartment at Candeur Eternia, Bachupally. Includes all charges and payment plan breakdown." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://candeureternia.com/candeur-eternia-calculator.html" />
+<meta property="og:image" content="https://candeureternia.com/images/brochure/page-04.jpg" />
+<meta property="og:image:alt" content="Candeur Eternia apartments - Bachupally Hyderabad" />
+<meta property="og:site_name" content="Candeur Eternia" />
+<meta property="og:locale" content="en_IN" />
+ <meta name="twitter:card" content="summary_large_image" />
+ <meta name="twitter:title" content="Candeur Eternia Price Calculator - Estimate Your Apartment Cost" />
+ <meta name="twitter:description" content="Calculate the total cost of your 2 BHK, 2.5 BHK or 3 BHK apartment at Candeur Eternia, Bachupally. Includes all charges and payment plan breakdown." />
+ <meta name="twitter:image" content="https://candeureternia.com/images/brochure/page-04.jpg" />
+ <meta name="twitter:site" content="@candeureternia" />
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
@@ -82,8 +99,8 @@ tr:hover td{background:rgba(201,168,76,0.04)}
 <body>
 <div class="header">
  <div>
- <h1>Candeur Eternia – Price Calculator</h1>
- <p>Bachupally, Hyderabad · Authorised Channel Partner Tool</p>
+ <h1>Candeur Eternia � Price Calculator</h1>
+ <p>Bachupally, Hyderabad � Authorised Channel Partner Tool</p>
  </div>
  <div class="rera">TS RERA REG. NO: P02200010709<br/>www.candeureternia.com</div>
 </div>
@@ -91,16 +108,16 @@ tr:hover td{background:rgba(201,168,76,0.04)}
 
 <!-- SECTION 1: FLAT SELECTOR -->
 <div class="card">
- <div class="card-title">Step 1 – Select Flat</div>
+ <div class="card-title">Step 1 � Select Flat</div>
  <div class="form-row">
  <div class="form-group">
  <label>Tower</label>
  <select id="block" onchange="updateBHK()">
  <option value="">-- Select Tower --</option>
- <option value="A">Tower A (6 flats/floor · 32 floors · All 3 BHK)</option>
- <option value="B">Tower B (10 flats/floor · 32 floors · 2/2.5/3 BHK)</option>
- <option value="C">Tower C (6 flats/floor · 32 floors · 2.5/3 BHK)</option>
- <option value="D">Tower D (8 flats/floor · 35 floors · 2/3 BHK)</option>
+ <option value="A">Tower A (6 flats/floor � 32 floors � All 3 BHK)</option>
+ <option value="B">Tower B (10 flats/floor � 32 floors � 2/2.5/3 BHK)</option>
+ <option value="C">Tower C (6 flats/floor � 32 floors � 2.5/3 BHK)</option>
+ <option value="D">Tower D (8 flats/floor � 35 floors � 2/3 BHK)</option>
  </select>
  </div>
  <div class="form-group">
@@ -119,42 +136,42 @@ tr:hover td{background:rgba(201,168,76,0.04)}
  <!-- hidden facing field kept for JS compatibility -->
  <select id="facing" style="display:none"></select>
  <div class="flat-info" id="flatInfo">
- <div class="fi-item"><strong id="fi-size">–</strong><span>Size (Sq.Ft)</span></div>
- <div class="fi-item"><strong id="fi-floor">–</strong><span>Floor</span></div>
- <div class="fi-item"><strong id="fi-facing">–</strong><span>Facing</span></div>
- <div class="fi-item"><strong id="fi-bhk">–</strong><span>Configuration</span></div>
- <div class="fi-item"><strong id="fi-corner">–</strong><span>Corner Unit</span></div>
+ <div class="fi-item"><strong id="fi-size">�</strong><span>Size (Sq.Ft)</span></div>
+ <div class="fi-item"><strong id="fi-floor">�</strong><span>Floor</span></div>
+ <div class="fi-item"><strong id="fi-facing">�</strong><span>Facing</span></div>
+ <div class="fi-item"><strong id="fi-bhk">�</strong><span>Configuration</span></div>
+ <div class="fi-item"><strong id="fi-corner">�</strong><span>Corner Unit</span></div>
  </div>
 </div>
 
 <!-- SECTION 2: PRICE CONFIG -->
 <div class="grid-2">
  <div class="card">
- <div class="card-title">Step 2 – Price Configuration</div>
+ <div class="card-title">Step 2 � Price Configuration</div>
  <div class="section-label">Per Sq.Ft Charges</div>
  <div class="form-row">
  <div class="form-group">
- <label>Base Price (₹/sqft)</label>
+ <label>Base Price (?/sqft)</label>
  <input type="number" id="basePrice" value="6499" oninput="calculate()"/>
  </div>
  <div class="form-group">
- <label>Amenities & Infra (₹/sqft)</label>
+ <label>Amenities & Infra (?/sqft)</label>
  <input type="number" id="amenities" value="500" oninput="calculate()"/>
  </div>
  <div class="form-group">
- <label>Floor Rise (₹/sqft) — auto</label>
+ <label>Floor Rise (?/sqft) � auto</label>
  <input type="number" id="floorRise" value="0" readonly/>
  </div>
  <div class="form-group">
- <label>East Facing (₹/sqft) — auto</label>
+ <label>East Facing (?/sqft) � auto</label>
  <input type="number" id="eastFacing" value="0" readonly/>
  </div>
  <div class="form-group">
- <label>Corpus Fund (₹/sqft)</label>
+ <label>Corpus Fund (?/sqft)</label>
  <input type="number" id="corpus" value="50" oninput="calculate()"/>
  </div>
  <div class="form-group">
- <label>Advance Maintenance (₹/sqft)</label>
+ <label>Advance Maintenance (?/sqft)</label>
  <input type="number" id="maintenance" value="54" oninput="calculate()"/>
  </div>
  </div>
@@ -162,26 +179,26 @@ tr:hover td{background:rgba(201,168,76,0.04)}
  <div class="checkbox-row">
  <input type="checkbox" id="corner" onchange="calculate()"/>
  <label for="corner">Corner Premium</label>
- <span class="rate">₹100/sqft</span>
+ <span class="rate">?100/sqft</span>
  </div>
  <div class="checkbox-row">
  <input type="checkbox" id="viewPremium" onchange="calculate()"/>
  <label for="viewPremium">View Premium Charges</label>
- <span class="rate">₹100/sqft</span>
+ <span class="rate">?100/sqft</span>
  </div>
  <div class="checkbox-row">
  <input type="checkbox" id="parking" onchange="calculate()" checked/>
  <label for="parking">Car Parking (1 Slot)</label>
- <span class="rate">₹3,50,000 fixed</span>
+ <span class="rate">?3,50,000 fixed</span>
  </div>
  <div class="section-label" style="margin-top:16px">Fixed Charges</div>
  <div class="form-row">
  <div class="form-group">
- <label>Legal & Documentation (₹)</label>
+ <label>Legal & Documentation (?)</label>
  <input type="number" id="legal" value="25000" oninput="calculate()"/>
  </div>
  <div class="form-group">
- <label>Gas Pipeline Charges (₹)</label>
+ <label>Gas Pipeline Charges (?)</label>
  <input type="number" id="gas" value="30000" oninput="calculate()"/>
  </div>
  </div>
@@ -245,7 +262,7 @@ tr:hover td{background:rgba(201,168,76,0.04)}
  <div class="card-title">Price Breakdown</div>
  <table id="breakdownTable">
  <thead>
- <tr><th>Sl.</th><th>Particulars</th><th>Rate</th><th>Sq.Ft</th><th style="text-align:right">Amount (₹)</th></tr>
+ <tr><th>Sl.</th><th>Particulars</th><th>Rate</th><th>Sq.Ft</th><th style="text-align:right">Amount (?)</th></tr>
  </thead>
  <tbody id="breakdownBody">
  <tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see price breakdown</td></tr>
@@ -257,23 +274,23 @@ tr:hover td{background:rgba(201,168,76,0.04)}
 <div class="card">
  <div class="card-title">Payment Schedule</div>
  <div class="pay-legend">
- <div class="legend-item"><div class="legend-dot dot-20"></div><span style="color:#86efac">20% – On Booking (within 21 days)</span></div>
- <div class="legend-item"><div class="legend-dot dot-30"></div><span style="color:#93c5fd">30% – Construction Linked Installments</span></div>
- <div class="legend-item"><div class="legend-dot dot-50"></div><span style="color:#d8b4fe">50% – On Possession</span></div>
+ <div class="legend-item"><div class="legend-dot dot-20"></div><span style="color:#86efac">20% � On Booking (within 21 days)</span></div>
+ <div class="legend-item"><div class="legend-dot dot-30"></div><span style="color:#93c5fd">30% � Construction Linked Installments</span></div>
+ <div class="legend-item"><div class="legend-dot dot-50"></div><span style="color:#d8b4fe">50% � On Possession</span></div>
  </div>
  <table>
  <thead>
- <tr><th>Sl.</th><th>Stage of Payment</th><th>%</th><th style="text-align:right">Installment (₹)</th><th style="text-align:right">TDS 1%</th><th style="text-align:right">GST 5%</th><th style="text-align:right">Total (incl GST, excl TDS)</th><th style="text-align:right">Total (incl GST & TDS)</th></tr>
+ <tr><th>Sl.</th><th>Stage of Payment</th><th>%</th><th style="text-align:right">Installment (?)</th><th style="text-align:right">TDS 1%</th><th style="text-align:right">GST 5%</th><th style="text-align:right">Total (incl GST, excl TDS)</th><th style="text-align:right">Total (incl GST & TDS)</th></tr>
  </thead>
  <tbody id="scheduleBody">
  <tr><td colspan="5" style="text-align:center;color:#555;padding:24px">Select a flat to see payment schedule</td></tr>
  </tbody>
  </table>
  <div class="note" style="margin-top:16px">
- • Registration Charges, GST and any other taxes as applicable are payable on the prevailing Guidelines.<br/>
- • The above mentioned rates are subject to confirmation and not a legal offering. Prices are subject to change without prior Notice.<br/>
- • Stamp Duty Charges as applicable under RERA for Registration of Sale Agreement shall be paid by the Buyer.<br/>
- • Demand for the payment will be on the basis of completion of the milestones attributed to the particular wing/block in which Apartment is located.
+ � Registration Charges, GST and any other taxes as applicable are payable on the prevailing Guidelines.<br/>
+ � The above mentioned rates are subject to confirmation and not a legal offering. Prices are subject to change without prior Notice.<br/>
+ � Stamp Duty Charges as applicable under RERA for Registration of Sale Agreement shall be paid by the Buyer.<br/>
+ � Demand for the payment will be on the basis of completion of the milestones attributed to the particular wing/block in which Apartment is located.
  </div>
 </div>
 
@@ -472,6 +489,7 @@ window.addEventListener('scroll',()=>{const h=document.getElementById('header');
 </script>
 </body>
 </html>
+
 
 
 
