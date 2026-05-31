@@ -16,6 +16,41 @@
  <!-- ✅ Preload hero image for faster LCP (Core Web Vitals) -->
  <link rel="preload" as="image" href="images/brochure/page-04.jpg" fetchpriority="high" />
 
+ <!-- ✅ Inline critical CSS to eliminate render-blocking -->
+ <style>
+  /* Critical above-the-fold styles inlined to avoid render blocking */
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;font-size:16px}
+  body{font-family:'Inter',system-ui,-apple-system,sans-serif;color:#1a1a1a;background:#fff;line-height:1.6}
+  img{max-width:100%;display:block}
+  a{text-decoration:none;color:inherit}
+  :root{--gold:#b8963e;--gold-light:#d4af6a;--dark:#0f0f0f;--dark2:#1a1a1a;--gray:#6b7280;--light:#f9f6f0;--white:#ffffff;--radius:8px;--shadow:0 4px 24px rgba(0,0,0,0.08)}
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+  .header{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(15,15,15,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(184,150,62,0.2);transition:all 0.3s}
+  .header-inner{display:flex;align-items:center;justify-content:space-between;height:70px}
+  .logo{display:flex;flex-direction:column;line-height:1}
+  .logo-main{font-size:1.2rem;color:var(--gold);letter-spacing:3px}
+  .logo-sub{font-size:0.65rem;letter-spacing:4px;color:rgba(255,255,255,0.6);text-transform:uppercase}
+  .nav{display:flex;align-items:center;gap:28px}
+  .nav a{color:rgba(255,255,255,0.8);font-size:0.875rem;font-weight:400;transition:color 0.2s}
+  .btn-nav{background:var(--gold);color:#fff;padding:10px 22px;border-radius:8px;font-weight:600;font-size:0.875rem}
+  .hero{min-height:100vh;position:relative;display:flex;align-items:center;background:#0f0f0f;overflow:hidden}
+  .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(15,15,15,0.6) 0%,rgba(15,15,15,0.4) 50%,rgba(15,15,15,0.8) 100%)}
+  .hero-bg-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+  .hero-content{position:relative;z-index:1;padding-top:70px;max-width:700px}
+  .hero-tag{font-size:0.8rem;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold-light);margin-bottom:20px;font-weight:500}
+  .hero-title{font-size:clamp(2.4rem,5vw,4rem);color:#fff;line-height:1.15;margin-bottom:20px}
+  .hero-sub{font-size:1.05rem;color:rgba(255,255,255,0.85);margin-bottom:36px}
+  .hero-cta{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:40px}
+  .btn-primary{display:inline-block;background:var(--gold);color:#fff;padding:14px 32px;border-radius:8px;font-weight:600;font-size:0.95rem;letter-spacing:0.5px;transition:background 0.2s,transform 0.2s;border:none;cursor:pointer}
+  .btn-outline{display:inline-block;border:2px solid rgba(255,255,255,0.7);color:#fff;padding:13px 30px;border-radius:8px;font-weight:500;transition:all 0.2s}
+  .hero-rera{display:flex;gap:24px;flex-wrap:wrap}
+  .hero-rera span{font-size:0.8rem;color:rgba(255,255,255,0.75)}
+  .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+  .hamburger span{display:block;width:24px;height:2px;background:#fff;transition:all 0.3s}
+  @media(max-width:768px){.nav{display:none}.hamburger{display:flex}}
+ </style>
+
  <!-- ✅ Geo Tags -->
  <meta name="geo.region" content="IN-TG" />
  <meta name="geo.placename" content="Bachupally, Hyderabad" />
@@ -222,14 +257,20 @@
  }
  </script>
 
- <!-- ✅ Performance & Fonts -->
+ <!-- ✅ Performance & Fonts – non-render-blocking -->
  <link rel="preconnect" href="https://fonts.googleapis.com" />
  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+ <!-- Load fonts async – does NOT block rendering -->
  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'"/>
  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/></noscript>
- <link rel="stylesheet" href="style.css" />
+ <!-- Main stylesheet loaded async to avoid render-blocking -->
+ <link rel="preload" href="style.css" as="style" onload="this.onload=null;this.rel='stylesheet'" />
+ <noscript><link rel="stylesheet" href="style.css" /></noscript>
 </head>
 <body>
+
+ <!-- Skip to main content – keyboard accessibility -->
+ <a href="#overview" class="skip-link">Skip to main content</a>
 
  <!-- Sticky Header -->
  <header class="header" id="header">
@@ -248,7 +289,9 @@
  <a href="#contact" class="btn-nav">Enquire Now</a>
  </nav>
  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
- 
+  <span aria-hidden="true"></span>
+  <span aria-hidden="true"></span>
+  <span aria-hidden="true"></span>
  </button>
  </div>
  <div class="mobile-nav" id="mobileNav" aria-hidden="true">
@@ -263,7 +306,17 @@
  </header>
 
  <!-- Hero -->
- <section class="hero" id="home" aria-label="Hero section" style="background-image: url('images/brochure/page-04.jpg');">
+ <section class="hero" id="home" aria-label="Hero section">
+ <!-- LCP image: real <img> with fetchpriority so browser prioritises it immediately -->
+ <img
+  src="images/brochure/page-04.jpg"
+  alt="Candeur Eternia - Bachupally's tallest landmark premium apartment building"
+  class="hero-bg-img"
+  fetchpriority="high"
+  decoding="sync"
+  width="1600"
+  height="900"
+ />
  <div class="hero-overlay"></div>
  <div class="container hero-content">
  <p class="hero-tag">Premium Gated Community · Bachupally, Hyderabad</p>
@@ -327,7 +380,7 @@
  <a href="#contact" class="btn-primary">Get Brochure</a>
  </div>
  <div class="overview-image">
- <img src="images/brochure/page-15.jpg" alt="Candeur Eternia premium apartment interior - Bachupally Hyderabad" loading="lazy" />
+ <img src="images/brochure/page-15.jpg" alt="Candeur Eternia premium apartment interior - Bachupally Hyderabad" loading="lazy" decoding="async" width="600" height="420" />
  </div>
  </div>
  </section>
@@ -391,7 +444,7 @@
  <a href="#contact" class="btn-primary">Download Master Plan</a>
  </div>
  <div class="masterplan-image">
- <img src="images/brochure/page-22.jpg" alt="Candeur Eternia Master Plan - 7 acre gated community layout Bachupally Hyderabad" loading="lazy" />
+ <img src="images/brochure/page-22.jpg" alt="Candeur Eternia Master Plan - 7 acre gated community layout Bachupally Hyderabad" loading="lazy" decoding="async" width="840" height="560" />
  </div>
  </div>
  </section>
@@ -404,25 +457,25 @@
  <p class="section-sub center">A peek into the spaces you'll call home.</p>
  <div class="gallery-grid">
  <div class="gallery-item gallery-large">
- <img src="images/brochure/page-04.jpg" alt="Candeur Eternia - Bachupally tallest landmark exterior" loading="lazy" />
+ <img src="images/brochure/page-04.jpg" alt="Candeur Eternia - Bachupally tallest landmark exterior" loading="lazy" decoding="async" width="800" height="452" />
  </div>
  <div class="gallery-item">
- <img src="images/brochure/page-16.jpg" alt="Candeur Eternia interior - premium apartment Bachupally" loading="lazy" />
+ <img src="images/brochure/page-16.jpg" alt="Candeur Eternia interior - premium apartment Bachupally" loading="lazy" decoding="async" width="400" height="220" />
  </div>
  <div class="gallery-item">
- <img src="images/brochure/page-17.jpg" alt="Candeur Eternia interior render - luxury apartment" loading="lazy" />
+ <img src="images/brochure/page-17.jpg" alt="Candeur Eternia interior render - luxury apartment" loading="lazy" decoding="async" width="400" height="220" />
  </div>
  <div class="gallery-item">
- <img src="images/brochure/page-13.jpg" alt="Candeur Eternia clubhouse amenities - 68000 sqft" loading="lazy" />
+ <img src="images/brochure/page-13.jpg" alt="Candeur Eternia clubhouse amenities - 68000 sqft" loading="lazy" decoding="async" width="400" height="220" />
  </div>
  <div class="gallery-item">
- <img src="images/brochure/page-18.jpg" alt="Candeur Eternia apartment interior - bedroom" loading="lazy" />
+ <img src="images/brochure/page-18.jpg" alt="Candeur Eternia apartment interior - bedroom" loading="lazy" decoding="async" width="400" height="220" />
  </div>
  <div class="gallery-item">
- <img src="images/brochure/page-19.jpg" alt="Candeur Eternia interior - kitchen and living area" loading="lazy" />
+ <img src="images/brochure/page-19.jpg" alt="Candeur Eternia interior - kitchen and living area" loading="lazy" decoding="async" width="400" height="220" />
  </div>
  <div class="gallery-item">
- <img src="images/brochure/page-33.jpg" alt="Candeur Eternia amenities – clubhouse and pool" loading="lazy" />
+ <img src="images/brochure/page-33.jpg" alt="Candeur Eternia amenities – clubhouse and pool" loading="lazy" decoding="async" width="400" height="220" />
  </div>
  </div>
  <div style="text-align:center;margin-top:28px">
@@ -440,7 +493,7 @@
  <div class="fp-grid">
  <div class="fp-card">
  <div class="fp-type">2 BHK</div>
- <img src="images/brochure/page-32.jpg" alt="2 BHK floor plan - Candeur Eternia Bachupally" loading="lazy" class="fp-img" />
+ <img src="images/brochure/page-32.jpg" alt="2 BHK floor plan - Candeur Eternia Bachupally" loading="lazy" decoding="async" class="fp-img" width="300" height="180" />
  <div class="fp-sizes">
  <span>East Facing – 1,462 Sq.Ft</span>
  <span>North Facing – 1,546 Sq.Ft</span>
@@ -450,7 +503,7 @@
  <div class="fp-card featured">
  <div class="fp-badge">Most Popular</div>
  <div class="fp-type">2.5 BHK</div>
- <img src="images/brochure/page-31.jpg" alt="2.5 BHK floor plan - Candeur Eternia Bachupally" loading="lazy" class="fp-img" />
+ <img src="images/brochure/page-31.jpg" alt="2.5 BHK floor plan - Candeur Eternia Bachupally" loading="lazy" decoding="async" class="fp-img" width="300" height="180" />
  <div class="fp-sizes">
  <span>East Facing – 1,619 Sq.Ft</span>
  <span>West Facing – 1,590 Sq.Ft</span>
@@ -459,7 +512,7 @@
  </div>
  <div class="fp-card">
  <div class="fp-type">3 BHK</div>
- <img src="images/brochure/page-28.jpg" alt="3 BHK floor plan - Candeur Eternia Bachupally" loading="lazy" class="fp-img" />
+ <img src="images/brochure/page-28.jpg" alt="3 BHK floor plan - Candeur Eternia Bachupally" loading="lazy" decoding="async" class="fp-img" width="300" height="180" />
  <div class="fp-sizes">
  <span>West Facing – 1,779 Sq.Ft</span>
  <span>East Facing – 1,681 Sq.Ft</span>
@@ -497,7 +550,7 @@
  <iframe
  title="Candeur Eternia Location Map – Bachupally, Hyderabad"
  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3805.3!2d78.36580!3d17.54890!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcb8e3b3b3b3b3b%3A0x0!2sCandeur+Eternia%2C+Bachupally%2C+Hyderabad%2C+Telangana+500090!5e0!3m2!1sen!2sin!4v1"
- width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"
+ width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy" decoding="async"
  referrerpolicy="no-referrer-when-downgrade">
  </iframe>
  </div>
@@ -619,10 +672,10 @@
  <!-- Specs brochure images -->
  <div class="specs-images">
   <div class="specs-img-item">
-   <img src="images/brochure/page-05.jpg" alt="Candeur Eternia specifications – construction and finish details" loading="lazy" width="100%" />
+   <img src="images/brochure/page-05.jpg" alt="Candeur Eternia specifications – construction and finish details" loading="lazy" decoding="async" width="440" height="620" />
   </div>
   <div class="specs-img-item">
-   <img src="images/brochure/page-33.jpg" alt="Candeur Eternia amenities specifications – clubhouse details" loading="lazy" width="100%" />
+   <img src="images/brochure/page-33.jpg" alt="Candeur Eternia amenities specifications – clubhouse details" loading="lazy" decoding="async" width="440" height="620" />
   </div>
  </div>
 
@@ -634,7 +687,7 @@
  <h2 id="brand-heading" class="center">By a Brand You Can Trust</h2>
  <p class="section-sub center">Candeur Constructions brings decades of expertise in delivering premium residential communities across Hyderabad.</p>
  <div class="brand-logo-wrap">
- <img src="https://candeureternia.in/images/logop.png" alt="Candeur Constructions logo" loading="lazy" />
+ <img src="https://candeureternia.in/images/logop.png" alt="Candeur Constructions logo" loading="lazy" decoding="async" width="200" height="80" />
  </div>
  <div class="brand-points">
  <div class="brand-point"><span>🏗️</span><p>Proven track record in premium residential development</p></div>
