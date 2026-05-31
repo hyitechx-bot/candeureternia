@@ -36,8 +36,8 @@ if (form) {
   });
 }
 
-// Sticky header shadow
+// Sticky header shadow – passive listener for performance
 window.addEventListener('scroll', () => {
   const h = document.getElementById('header');
   if (h) h.style.boxShadow = window.scrollY > 50 ? '0 2px 20px rgba(0,0,0,0.4)' : 'none';
-});
+}, { passive: true });
